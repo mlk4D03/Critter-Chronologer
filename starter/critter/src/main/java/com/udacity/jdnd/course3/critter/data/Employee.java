@@ -19,13 +19,23 @@ public class Employee extends User {
     @ElementCollection(targetClass = DayOfWeek.class)
     @CollectionTable(name = "days", joinColumns = @JoinColumn(name = "employeeId"))
     @Enumerated(EnumType.STRING)
-    private List<DayOfWeek> daysAvailable;
+    private Set<DayOfWeek> daysAvailable;
 
     @ManyToMany(mappedBy = "employees")
     private List<Shedules> shedules = new ArrayList<>();
 
-    public Employee(String name) {
+    public Employee(String name,Set<EmployeeSkill> employeeSkills,Set<DayOfWeek> daysAvailable) {
         super(name);
+        this.daysAvailable = daysAvailable;
+        this.skills = employeeSkills;
+    }
+
+    public Employee() {
+        super();
+    }
+
+    public Employee(Long id){
+        super(id);
     }
 
     public Set<EmployeeSkill> getSkills() {
@@ -36,11 +46,11 @@ public class Employee extends User {
         this.skills = skills;
     }
 
-    public List<DayOfWeek> getDaysAvailable() {
+    public Set<DayOfWeek> getDaysAvailable() {
         return daysAvailable;
     }
 
-    public void setDaysAvailable(List<DayOfWeek> daysAvailable) {
+    public void setDaysAvailable(Set<DayOfWeek> daysAvailable) {
         this.daysAvailable = daysAvailable;
     }
 

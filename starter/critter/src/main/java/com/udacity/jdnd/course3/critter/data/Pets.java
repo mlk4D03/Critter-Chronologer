@@ -20,7 +20,7 @@ public class Pets {
     @Nationalized
     private String name;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ownerId")
     private Customer owner;
 
@@ -37,6 +37,13 @@ public class Pets {
         this.name = name;
         this.birthDate = birthDate;
         this.notes = notes;
+    }
+
+    public Pets(){
+    }
+
+    public Pets(Long id){
+        this.id = id;
     }
 
     public long getId() {

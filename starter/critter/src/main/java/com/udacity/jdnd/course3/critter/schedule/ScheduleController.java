@@ -1,5 +1,9 @@
 package com.udacity.jdnd.course3.critter.schedule;
 
+import com.udacity.jdnd.course3.critter.data.Shedules;
+import com.udacity.jdnd.course3.critter.service.ScheduleService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,9 +15,12 @@ import java.util.List;
 @RequestMapping("/schedule")
 public class ScheduleController {
 
+    @Autowired
+    private ScheduleService scheduleService;
+
     @PostMapping
     public ScheduleDTO createSchedule(@RequestBody ScheduleDTO scheduleDTO) {
-        throw new UnsupportedOperationException();
+        return getScheduleDTO(this.scheduleService.saveShedule(scheduleDTO));
     }
 
     @GetMapping
@@ -34,5 +41,11 @@ public class ScheduleController {
     @GetMapping("/customer/{customerId}")
     public List<ScheduleDTO> getScheduleForCustomer(@PathVariable long customerId) {
         throw new UnsupportedOperationException();
+    }
+
+    private static ScheduleDTO getScheduleDTO(Shedules shedules) {
+        ScheduleDTO scheduleDTO = new ScheduleDTO();
+        BeanUtils.copyProperties(shedules,scheduleDTO);
+        return scheduleDTO;
     }
 }

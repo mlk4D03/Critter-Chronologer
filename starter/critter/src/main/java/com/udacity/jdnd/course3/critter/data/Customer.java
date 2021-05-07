@@ -4,7 +4,9 @@ import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,13 +18,21 @@ public class Customer extends User {
     @Nationalized
     private String notes;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pets> pets;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Pets> pets = new ArrayList<>();
 
-    public Customer(String name, String phoneNumber,String notes) {
+    public Customer(String name, String phoneNumber, String notes) {
         super(name);
         this.phoneNumber = phoneNumber;
         this.notes = notes;
+    }
+
+    public Customer(Long userId) {
+        super(userId);
+    }
+
+    public Customer() {
+        super();
     }
 
     public String getPhoneNumber() {
