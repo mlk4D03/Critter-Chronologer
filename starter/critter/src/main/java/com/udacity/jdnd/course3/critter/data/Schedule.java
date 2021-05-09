@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-public class Shedules {
+public class Schedule {
 
     @Id
     @GeneratedValue
@@ -20,7 +20,7 @@ public class Shedules {
     private List<Employee> employees = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.MERGE})
-    private List<Pets> pets = new ArrayList<>();
+    private List<Pet> pets = new ArrayList<>();
 
     @ElementCollection(targetClass = EmployeeSkill.class)
     @CollectionTable(name = "activities", joinColumns = @JoinColumn(name = "sheduleId"))
@@ -29,14 +29,14 @@ public class Shedules {
 
     private LocalDate date;
 
-    public Shedules(List<Employee> employees, Set<EmployeeSkill> activities,List<Pets> pets, LocalDate date) {
+    public Schedule(List<Employee> employees, Set<EmployeeSkill> activities, List<Pet> pets, LocalDate date) {
         this.employees = employees;
         this.activities = activities;
         this.date = date;
         this.pets = pets;
     }
 
-    public Shedules(){
+    public Schedule(){
 
     }
 
@@ -56,11 +56,11 @@ public class Shedules {
         this.employees = employees;
     }
 
-    public List<Pets> getPets() {
+    public List<Pet> getPets() {
         return pets;
     }
 
-    public void setPets(List<Pets> pets) {
+    public void setPets(List<Pet> pets) {
         this.pets = pets;
     }
 
@@ -72,5 +72,11 @@ public class Shedules {
         this.date = date;
     }
 
+    public Set<EmployeeSkill> getActivities() {
+        return activities;
+    }
 
+    public void setActivities(Set<EmployeeSkill> activities) {
+        this.activities = activities;
+    }
 }

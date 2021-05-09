@@ -2,10 +2,7 @@ package com.udacity.jdnd.course3.critter.data;
 
 import org.hibernate.annotations.Nationalized;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +13,11 @@ public class Customer extends User {
     private String phoneNumber;
 
     @Nationalized
+    @Column(length = 500)
     private String notes;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Pets> pets = new ArrayList<>();
+    private List<Pet> pets = new ArrayList<>();
 
     public Customer(String name, String phoneNumber, String notes) {
         super(name);
@@ -51,11 +49,11 @@ public class Customer extends User {
         this.notes = notes;
     }
 
-    public List<Pets> getPets() {
+    public List<Pet> getPets() {
         return pets;
     }
 
-    public void setPets(List<Pets> pets) {
+    public void setPets(List<Pet> pets) {
         this.pets = pets;
     }
 }

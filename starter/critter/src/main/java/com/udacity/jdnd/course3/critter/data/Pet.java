@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-public class Pets {
+public class Pet {
 
     @Id
     @GeneratedValue
@@ -27,22 +27,23 @@ public class Pets {
     private LocalDate birthDate;
 
     @Nationalized
+    @Column(length = 500)
     private String notes;
 
     @ManyToMany(mappedBy = "pets")
-    private List<Shedules> shedules;
+    private List<Schedule> shedules;
 
-    public Pets(PetType type, String name, LocalDate birthDate, String notes) {
+    public Pet(PetType type, String name, LocalDate birthDate, String notes) {
         this.type = type;
         this.name = name;
         this.birthDate = birthDate;
         this.notes = notes;
     }
 
-    public Pets(){
+    public Pet(){
     }
 
-    public Pets(Long id){
+    public Pet(Long id){
         this.id = id;
     }
 
@@ -94,11 +95,11 @@ public class Pets {
         this.notes = notes;
     }
 
-    public List<Shedules> getShedules() {
+    public List<Schedule> getShedules() {
         return shedules;
     }
 
-    public void setShedules(List<Shedules> shedules) {
+    public void setShedules(List<Schedule> shedules) {
         this.shedules = shedules;
     }
 }
